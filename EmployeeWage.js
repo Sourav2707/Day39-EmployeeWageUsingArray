@@ -43,3 +43,45 @@ while(totalEmpHrs <= MAX_WORKING_HRS && totalWorkingDays < NUM_OF_WORKING_DAYS) 
     console.log("Total working days for the month is "+totalWorkingDays+", total working hour "+totalEmpHrs+" and total wage is "+totalEmpWage);
 }
 wageCalculation();
+//UC7 A calculate total wage using Array forEach or reduce method
+let totEmpWage = 0;
+function sum(dailyWage) {
+    totEmpWage += dailyWage;
+}
+empWageArray.forEach(sum);
+console.log("UC7A - Total days : "+totalWorkingDays+" total hours : "+totalEmpHrs+" Emp wage : "+totEmpWage);
+function totalWages(totalWage, dailyWage) {
+    return totalWage+dailyWage;
+}
+console.log("UC7A - Emp wage with reduce method "+ empWageArray.reduce(totalWages, 0));
+//UC7 B - show the day along with daily wage using Array map
+let dailyCntr = 0;
+function mapDayWithWage(dailyWage) {
+    dailyCntr++;
+    return dailyCntr+" = "+dailyWage
+}
+let mapDayWithWageArray = empWageArray.map(mapDayWithWage);
+console.log("UC7B - daily wage map");
+console.log(mapDayWithWageArray);
+//UC7C - show days when full time wage of 160 were earned
+function fulltimeWage(dailyWage) {
+    return dailyWage.includes("160");
+}
+let fullDayWageArray = mapDayWithWageArray.filter(fulltimeWage);
+console.log("UC7C - daily wage filer using fulltime wage "+fullDayWageArray);
+//UC7 D - find the first occurance when full time wgae was earned using find
+console.log("UC7D - fist occurance of fulltime using find "+mapDayWithWageArray.find(fulltimeWage));
+//UC7 E - check if every element of full time wage is truely holding full time wage
+console.log("UC7E - check all elements have full time wage "+fullDayWageArray.every(fulltimeWage));
+//UC7 F - check if there is any part time wage
+function partTimeWage(dailyWage) {
+    return dailyWage.includes("80");
+}
+console.log("UC7F - check if any part time wage "+mapDayWithWageArray.some(partTimeWage));
+//UC7 G - find number of days the employee worked
+function totalDaysWorked(numbOfDays, dailyWage) {
+    if(dailyWage > 0)
+        return numbOfDays+1;
+    return numbOfDays;    
+}
+console.log("UC7G - number of days emp worked "+empWageArray.reduce(totalDaysWorked, 0));
